@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Tasks</title>
+    <style>
+        button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .counter {
+            font-size: 24px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Завдання Timeout -->
+    <h2>Timeout Task</h2>
+    <button id="startTimeout">Start Timeout</button>
+    <button id="cancelTimeout">Cancel Timeout</button>
+
+    <!-- Завдання Interval -->
+    <h2>Interval Task</h2>
+    <div class="counter" id="counter">0</div>
+    <button id="startInterval">Start Counter</button>
+    <button id="stopInterval">Stop Counter</button>
+
+    <!-- Завдання Fetch -->
+    <h2>Fetch Task</h2>
+    <button id="fetchData">Fetch Data</button>
+
+    <script>
+        // Завдання 1: Timeout
+        let timeoutId;
+        document.getElementById('startTimeout').addEventListener('click', () => {
+            timeoutId = setTimeout(() => {
+                alert("Час вийшов!");
+            }, 5000);
+        });
+
+        document.getElementById('cancelTimeout').addEventListener('click', () => {
+            clearTimeout(timeoutId);
+        });
+
+        // Завдання 2: Interval
+        let intervalId;
+        const counter = document.getElementById('counter');
+        let count = 0;
+
+        document.getElementById('startInterval').addEventListener('click', () => {
+            intervalId = setInterval(() => {
+                count++;
+                counter.textContent = count;
+            }, 1000);
+        });
+
+        document.getElementById('stopInterval').addEventListener('click', () => {
+            clearInterval(intervalId);
+        });
+
+        // Завдання 3: Fetch
+        document.getElementById('fetchData').addEventListener('click', () => {
+            fetch('https://jsonplaceholder.typicode.com/todos/1')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP Error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => console.log(data))
+                .catch(error => console.error('Fetch Error:', error));
+        });
+
+    </script>
+
+</body>
+</html>

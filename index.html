@@ -3,120 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown Timer</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
-    <style>
-        .timer {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        .field {
-            text-align: center;
-            font-size: 24px;
-        }
-        button:disabled {
-            background-color: grey;
-            cursor: not-allowed;
-        }
-    </style>
+    <title>Document</title>
 </head>
 <body>
-
-    <input type="text" id="datetime-picker" />
-    <button type="button" data-start disabled>Start</button>
-
-    <div class="timer">
-        <div class="field">
-            <span class="value" data-days>00</span>
-            <span class="label">Days</span>
-        </div>
-        <div class="field">
-            <span class="value" data-hours>00</span>
-            <span class="label">Hours</span>
-        </div>
-        <div class="field">
-            <span class="value" data-minutes>00</span>
-            <span class="label">Minutes</span>
-        </div>
-        <div class="field">
-            <span class="value" data-seconds>00</span>
-            <span class="label">Seconds</span>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://cdn.jsdelivr.net/npm/izitoast"></script>
-    <script>
-        let userSelectedDate = null;
-        let timerInterval = null;
-        const startButton = document.querySelector('[data-start]');
-        const dateTimePicker = document.querySelector('#datetime-picker');
-
-        flatpickr(dateTimePicker, {
-            enableTime: true,
-            time_24hr: true,
-            defaultDate: new Date(),
-            minuteIncrement: 1,
-            onClose(selectedDates) {
-                const selectedDate = selectedDates[0];
-                if (selectedDate <= new Date()) {
-                    iziToast.error({
-                        title: "Error",
-                        message: "Please choose a date in the future",
-                        position: "topRight",
-                    });
-                    startButton.disabled = true;
-                } else {
-                    userSelectedDate = selectedDate;
-                    startButton.disabled = false;
-                }
-            }
-        });
-
-        function convertMs(ms) {
-            const second = 1000;
-            const minute = second * 60;
-            const hour = minute * 60;
-            const day = hour * 24;
-
-            const days = Math.floor(ms / day);
-            const hours = Math.floor((ms % day) / hour);
-            const minutes = Math.floor(((ms % day) % hour) / minute);
-            const seconds = Math.floor((((ms % day) % hour) % minute) / second);
-            return { days, hours, minutes, seconds };
-        }
-
-        function addLeadingZero(value) {
-            return String(value).padStart(2, '0');
-        }
-
-        function updateTimerDisplay({ days, hours, minutes, seconds }) {
-            document.querySelector('[data-days]').textContent = addLeadingZero(days);
-            document.querySelector('[data-hours]').textContent = addLeadingZero(hours);
-            document.querySelector('[data-minutes]').textContent = addLeadingZero(minutes);
-            document.querySelector('[data-seconds]').textContent = addLeadingZero(seconds);
-        }
-
-        function startTimer() {
-            startButton.disabled = true;
-            dateTimePicker.disabled = true;
-
-            timerInterval = setInterval(() => {
-                const timeRemaining = userSelectedDate - new Date();
-                if (timeRemaining <= 0) {
-                    clearInterval(timerInterval);
-                    updateTimerDisplay({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-                    dateTimePicker.disabled = false;
-                    return;
-                }
-                updateTimerDisplay(convertMs(timeRemaining));
-            }, 1000);
-        }
-
-        startButton.addEventListener('click', startTimer);
-    </script>
-
+    <ul>
+        <li><a href="task1.html">Task 1</a></li>
+        <li><a href="task2.html">Task 2</a></li>
+    </ul>
 </body>
 </html>
